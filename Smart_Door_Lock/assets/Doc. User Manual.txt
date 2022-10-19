@@ -1,0 +1,81 @@
+===================================================================================================
+Các thư viện sử dụng	|
+========================|
+
+	LiquidCrystal_I2C
+	-> https://github.com/johnrickman/LiquidCrystal_I2C
+	|
+	OneButton
+	-> https://github.com/mathertel/OneButton
+	|
+	Adafruit-Fingerprint-Sensor-Library
+	-> https://github.com/adafruit/Adafruit-Fingerprint-Sensor-Library
+
+***	ButtonLib
+	-> https://github.com/JaredTCan/ButtonLib
+
+===================================================================================================
+Thông tin Vân tay	|
+========================|
+
+#	Arduino Optical Fingerprint Sensor (AS608)
+	-> https://makersportal.com/blog/2019/6/9/arduino-optical-fingerprint-sensor-as608
+
+#	Cảm Biến Nhận Dạng Vân Tay AS608 Fingerprint Sensor
+	-> https://hshop.vn/products/cam-bien-nhan-dang-van-tay-as608-fingerprint-sensor
+	|
+	Để giao tiếp UART ta cần sử dụng các chân
+	V+	: Cấp nguồn 3.3VDC		==> ĐỎ
+	Tx	: nối với RX của Vi điều kiển	==> VÀNG
+	Rx	: nối với TX của Vi điều kiển	==> TRẮNG
+	GND	: Cấp nguồn GND			==> ĐEN
+	-------------------------------------------------
+	TCH	: Chân Output của cảm biến chạm Touch				==> XANH DƯƠNG
+	|	  Khi chạm tay vào cảm biến chân này sẽ xuất ra mức cao HIGH	|
+	|	  Để sử dụng tính năng này cần cấp nguồn 3.3VDC cho chân VA	|
+	VA	: Chân cấp nguồn 3.3VDC cho Touch Sensor			==> XANH LÁ
+	-------------------------------------------------
+	U+	: Chân tín hiệu USB D+
+	U-	: Chân tín hiệu USB D-
+	|
+	Tốc độ Baudrate UART: 9600 x N (N từ 1~12)
+	Mặc định N=6 Baudrate = 57600, Data bits = 8, Stop bits = 1, Parity = none
+
+===================================================================================================
+Thông tin Nút nhấn	|
+========================|
+
+#	Mạch Nút Nhấn MKE-M02 Push Button Tact Switch Module
+	-> https://hshop.vn/products/mach-nut-nhan-mkl-m02-push-button-tact-switch-module
+	|
+	Thiết kế dạng TRỞ KÉO LÊN (Pull-Up)
+	. Bình thường ko nhấn nút	==> HIGH
+	. Nhấn nút			==> LOW
+
+===================================================================================================
+Quy trình hoạt động	|
+========================|
+
+* Giao diện chính đầu tiên khi mới khởi động là "FINGERPRINT_SCAN"
+  Đây cũng là giao diện "hoạt động" liên tục
+	|
+! Nhấn nút MENU [1 Click] để chuyển qua lại giữa 2 giao diện trên và dưới này
+	|
+* Giao diện "cài đặt" có tên là "CHOOSE_ID" và thuộc lớp thứ nhất
+  Dùng để chọn ID và nó còn một lớp thứ hai
+	|
+! Nhấn nút ID [1 Click] hoặc [Hold Click] để chọn số ID mong muốn
+! Nhấn nút OK [1 Click] để vào lớp thứ hai
+	|
+	* Sau khi chọn ID rồi, thì vào lớp thứ hai
+	  Có 3 giao diện phụ, trong đó:
+	  |	"ENROLL_FINGERPRINT" dùng để đăng ký vân tay cho ID đó
+	  |	"DELETE_FINGERPRINT" dùng để xóa dữ liệu vân tay của ID đó
+	  |	"DELETE_ALL_FINGERPRINT" dùng để xóa tất cả dữ liệu ID vân tay
+	  |
+	! Nhấn nút MENU [1 Click] để chuyển qua lại giữa 3 giao diện phụ này
+	! Nhấn nút OK [1 Click] để bắt đầu quá trình đăng ký vân tay nếu đang trong giao diện "ENROLL_FINGERPRINT"
+	! Nhấn nút OK [2 Click] để xác nhận xóa dữ liệu vân tay của ID đó nếu đang trong giao diện "DELETE_FINGERPRINT"
+	! Nhấn nút OK [2 Click] để xác nhận xóa dữ liệu vân tay của tất cả ID nếu đang trong giao diện "DELETE_ALL_FINGERPRINT"
+
+===================================================================================================
