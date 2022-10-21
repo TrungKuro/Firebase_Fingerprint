@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.12.1/firebase-database.js"></script>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    // import { initializeApp } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-app.js";
+    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.12.1/firebase-analytics.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyCGCNj5Y60_mOvVhGa59Z97Q_By_mz2CMY",
+      authDomain: "nodemcu-c6e6d.firebaseapp.com",
+      databaseURL: "https://nodemcu-c6e6d-default-rtdb.firebaseio.com",
+      projectId: "nodemcu-c6e6d",
+      storageBucket: "nodemcu-c6e6d.appspot.com",
+      messagingSenderId: "238954531984",
+      appId: "1:238954531984:web:45a27c8e3c1ebfffeedc15",
+      measurementId: "G-0SSDSPNZC4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    function ledOn() {
+      firebase.database().ref("LED").set({
+        status: "ON"
+      })
+    }
+
+    function ledOff() {
+      firebase.database().ref("LED").set({
+        status: "OFF"
+      })
+    }
+  </script>
+
+  <h1> LED TURN ON / OFF APP </h1>
+  <button onclick="ledOn()">ON</button>
+  <button onclick="ledOff()">OFF</button>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+-------------------------------------------------
+# Test code example!
+	|
+	FirebaseDemo_ESP8266.ino
+
+_ Sau khi test với example của thư viện Firebase
+  Đây là kết quả mình nhận được
+  Quả thực Firebase nó có chạy
+	|
+-> https://console.firebase.google.com/project/nodemcu-c6e6d/database/nodemcu-c6e6d-default-rtdb/data
+	|
+_ Hiện tại mình đang dùng thư viện
+  ESP8266 - version 2.4.1
+  ArduinoJson - version 5.13.5
+  Firebase Arduino 0.3
+	|
+_ Và cả phần FingerPrint của trang web -> test.firebaseio.com
+  Mình cũng đã cập nhập "Security Certificate's Authentic Fingerprint" giá trị mới
+  Là 05:54:AC:F9:6D:9B:E0:9C:10:B4:09:B1:E2:7C:12:AF:B4:C8:6C:EA
+	|
+	_ Tuy nhiên, điều ko may là mình làm theo bài hướng dẫn này thì nó ko chạy
+	|
+	-> https://senuravihanjayadeva.medium.com/turn-on-off-a-led-from-a-html-web-site-using-firebase-53aadb828fac
+
+-------------------------------------------------
+	# Cấu hình liên kết giữa ESP và FIREBASE
+
+#define FIREBASE_HOST "nodemcu-c6e6d-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH "1sn5lmTJxEsz4Nk3bEptleriM0dSrlSdyd3qNWCm"
+#define WIFI_SSID "HshopLTK"
+#define WIFI_PASSWORD "HshopLTK@2311"
+
+-------------------------------------------------
+
+GỬI LÊN FIREBASE
+	|
+	// set value		Firebase.setFloat("number", 42.0);
+	// update value		Firebase.setFloat("number", 43.0);
+
+GỬI LÊN SERIAL MONITOR
+	|
+	// get value		Serial.print("number: "); Serial.println(Firebase.getFloat("number"));
+
+GỬI LÊN FIREBASE
+	|
+	// remove value				Firebase.remove("number");
+	// set string value			Firebase.setString("message", "hello world");
+	// set bool value			Firebase.setBool("truth", false);
+	// append a new value to /logs		String name = Firebase.pushInt("logs", n++);
+
+GỬI LÊN SERIAL MONITOR
+	|
+	.					Serial.print("pushed: /logs/"); Serial.println(name);
+
+-------------------------------------------------
+	# Serial Monitor phản hồi
+
+number: 43.00
+⸮(⸮9s⸮connecting.....
+connected: 192.168.1.112
+number: 43.00
+pushed: /logs/-NEtl0SXxDaIaL34xQRX
+number: 43.00
+pushed: /logs/-NEtl2cD8kZkW1m_m4dy
+number: 43.00
+pushed: /logs/-NEtl4hZt5excpm-5vsv
+number: 43.00
+pushed: /logs/-NEtl6n-EGE7k1eUE0b3
+number: 43.00
+pushed: /logs/-NEtl8txFoImExiNbYko
+number: 43.00
+pushed: /logs/-NEtlB-MS5lP1K1dUHWb
+number: 43.00
+pushed: /logs/-NEtlD5aPULEulIxvY1j
+number: 43.00
+pushed: /logs/-NEtlFBADQWcUmleCUri
+
+-------------------------------------------------
+	# Realtime Database (Firebase)
+
+logs ----
+	|
+	-NEtl0SXxDaIaL34xQRX: 0
+	-NEtl2cD8kZkW1m_m4dy: 1
+	-NEtl4hZt5excpm-5vsv: 2
+	-NEtl6n-EGE7k1eUE0b3: 3
+	-NEtl8txFoImExiNbYko: 4
+	-NEtlB-MS5lP1K1dUHWb: 5
+	-NEtlD5aPULEulIxvY1j: 6
+	-NEtlFBADQWcUmleCUri: 7
+message: "hello world"
+number: 42
+truth: false
+
+-------------------------------------------------
+	# Các phương thức API của "FirebaseArduino"
+
+* ESP -> FIREBASE
+
+	_ Set number value	---	Firebase.setFloat("number", 1.34)		... tạo 1 cặp giá trị có NAME là "number" và VALUE là (1.34)
+	_ Set number value	---	Firebase.setInt("number", 134)			... tạo 1 cặp giá trị có NAME là "number" và VALUE là (134)
+	_ Set bool value	---	Firebase.setBool("truth", false)		... tạo 1 cặp giá trị có NAME là "truth" và VALUE là [false]
+	_ Set string value	---	Firebase.setString("message", "hello world")	... tạo 1 cặp giá trị có NAME là "message" và VALUE là "hello world"
+	|
+	_ Append a new value to	---	Firebase.pushInt("logs", n++)	... tạo 1 tổ hợp giá trị có NAME là "logs"
+	|			|					    trong NAME sẽ chứa được nhiều cặp giá trị
+	|			|					    với mỗi ID duy nhất được tạo đính kèm một giá trị VALUE
+	|			|					... đồng thời hàm này cho FIREBASE trả về ESP tên của ID (dạng chuỗi) được tạo lúc đó
+	|			---	Firebase.pushFloat()
+	|			---	Firebase.pushBool()
+	|			---	Firebase.pushString()
+	|
+	_ Remove value		---	Firebase.remove("number")			... xóa giá trị VALUE của NAME có tên "number" ... tức lúc này VALUE là NULL
+
+* FIREBASE -> ESP
+
+	_ Get value		---	Firebase.getFloat("number")			... lấy VALUE của NAME có tên "number" ... sẽ nhận được (1.34)
+	|			---	Firebase.getInt()
+	|			---	Firebase.getBool()
+	|			---	Firebase.getString()
+
+* Xử lý lỗi
+	|
+1. Đầu tiên, ESP sẽ gửi yêu cầu lên FIREBASE
+   Và nó sẽ phản hồi về cho biết có lỗi hay ko?		---	if (Firebase.failed()) {}
+	|
+2. Nếu có, dùng lệnh này để ESP nhận nội dung lỗi	---	Serial.println(Firebase.error());
+   Do ESP gửi xuống!
+
+-------------------------------------------------
