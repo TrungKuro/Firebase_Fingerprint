@@ -1,0 +1,28 @@
+---------------------------------------------------------------------------------------------------
+
+# Giao tiếp UART giữa ESP và Arduino
+
+	UART Tutorial for Arduino and ESP8266
+	-> https://diyi0t.com/uart-tutorial-for-arduino-and-esp8266/
+
+	Serial.readString()
+	-> https://www.arduino.cc/reference/en/language/functions/communication/serial/readstring/
+
+	Serial.read()
+	-> https://www.arduino.cc/reference/en/language/functions/communication/serial/read/
+
+---------------------------------------------------------------------------------------------------
+
+# Test giao tiếp giữa ESP và Arduino
+	|
+	UNO	---	ESP
+	0 (RX)		TX
+	1 (TX)		RX
+	GND		GND
+	|
+. Đặt cùng Baudrate 9600 cho UNO và ESP
+	|
+. ESP sẽ gửi "OK" cho UNO, sau đó đợi UNO phản hồi "Allo" về
+. UNO sẽ gửi "Allo" cho ESP, sau đó đợi ESP phản hồi "OK" về
+
+---------------------------------------------------------------------------------------------------

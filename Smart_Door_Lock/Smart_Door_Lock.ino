@@ -62,6 +62,8 @@ unsigned long lastEvent;
 SoftwareSerial mySerial(2, 3); // RX, TX
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
 
+String text;
+
 /**
  * Note, the larger this value
  * The more it affects the ability to handle the Button
@@ -569,6 +571,17 @@ void setup()
 
   /* Buzzer */
   pinMode(PIN_BUZZ, OUTPUT);
+
+  /* Wait for ESP's confirmation response */
+  while (Serial.available())
+  {
+    text = Serial.readString();
+    if (text == "Done") // To know ESP had connected with Firebase!
+    {
+      Serial.print("OK"); // For ESP know UNO had ready!
+      break;
+    }
+  }
 }
 
 void loop()

@@ -78,4 +78,75 @@ Quy trình hoạt động	|
 	! Nhấn nút OK [2 Click] để xác nhận xóa dữ liệu vân tay của ID đó nếu đang trong giao diện "DELETE_FINGERPRINT"
 	! Nhấn nút OK [2 Click] để xác nhận xóa dữ liệu vân tay của tất cả ID nếu đang trong giao diện "DELETE_ALL_FINGERPRINT"
 
+---------------------------------------------------------------------------------------------------
+
+# Hướng dẫn chi tiết thao tác sử dụng:
+	|
+Có tất cả 5 giao diện
+Trong đó 2 giao diện chính
+Và 3 giao diện con được phân cấp như sau:
+|
+|	0. FINGERPRINT_SCAN
+|	1. CHOOSE_ID
+|	|	2. ENROLL_FINGERPRINT
+|	|	3. DELETE_FINGERPRINT
+|	|	4. DELETE_ALL_FINGERPRINT
+|
+Giải thích chức năng của mỗi giao diện:
+	|
+0. FINGERPRINT_SCAN		: Là giao diện quét vân tay, dùng để chấm công
+|
+|	- Đây là giao diện chính mặc định, chương trình sẽ tự động quay lại giao diện này
+|	  khi phát hiện ko có bất cứ thao tác nào từ người dùng sau một khoảng thời gian [TIME_AUTO_RETURN]
+|		|
+|	! Bên cạnh người dùng có thể chủ động quay lại giao diện chính này bằng cách "nhấn giữ đè rồi nhả" nút MENU (Attach Long Press Stop)
+|	  Hoặc nếu đang ở giao diện [CHOOSE_ID], chỉ cần bấm (1 Click) nút MENU
+|
+|	- Giao diện này có chức năng chấm công
+|	  Chương trình sẽ đợi liên tục, khi phát hiện có người đưa ngón tay vào cảm biến, nó sẽ bắt đầu quét vân tay
+|	  Nếu đây là vân tay lạ chưa đăng ký, nó sẽ báo ko hợp lệ
+|	  Nếu đây là vân tay đã đăng ký
+|	  |	Nó sẽ kích relay để mở cửa trong khoảng [TIME_OPEN_DOOR]
+|	  |	Đồng thời gửi dữ liệu ID này cho ESP để ESP tiếp tục xử lý cho lên Firebase
+|
+|	! Khi ở giao diện này, để vào giao diện cài đặt chính [CHOOSE_ID]
+|	  Ta bấm (1 Click) nút MENU
+|
+1. CHOOSE_ID			: Là giao diện chọn ID, dùng để đăng ký vân tay mới với ID đang chọn
+|
+|	- Đây là giao diện cài đặt chính
+|	  Tại đây người dùng cần chọn ID trước khi chọn các tính năng cài đặt khác
+|	  Bằng cách nhấn (1 Click) nút ID hoặc "nhấn giữ đè" nút ID (Attach During Long Press) cho nhảy số nhanh
+|		|
+|	  Khi đã chọn được ID mình muốn
+|	  Nhấn (1 Click) nút OK để xác nhận ID đã chọn, rồi vào các giao diện cài đặt con sau:
+|	  |
+|	  |	ENROLL_FINGERPRINT	... mặc định hiển thị đầu tiên
+|	  |	DELETE_FINGERPRINT
+|	  |	DELETE_ALL_FINGERPRINT
+|	  |
+|	  Lúc này người, có thể nhấn (1 Click) nút MENU để chuyển đổi qua lại giữa các giao diện này
+|
+2. ENROLL_FINGERPRINT		: Là giao diện đăng ký vân tay, dùng để xác nhận muốn đăng ký vân tay mới với ID đã chọn
+|
+|	- Khi đang ở giao diện này
+|	  Nếu người dùng nhấn (1 Click) nút OK
+|		|
+|	! Chương trình sẽ bắt đầu quá trình đăng ký vân tay mới để gắn cho ID đã chọn
+|	  Nó sẽ chạy cho đến khi nào hoàn tất xong quá trình đăng ký mới thoát ra
+|
+3. DELETE_FINGERPRINT		: Là giao diện xóa vân tay, dùng để xác nhận muốn xóa dữ liệu vân tay của ID đã chọn
+|
+|	- Khi đang ở giao diện này
+|	  Nếu người dùng nhấn (2 Click) nút OK
+|		|
+|	! Tức đã xác nhận muốn xóa dữ liệu vân tay của ID đã chọn
+|
+4. DELETE_ALL_FINGERPRINT	: Cũng là giao diện xóa vân tay, dùng để xác nhận muốn XÓA TẤT CẢ dữ liệu vân tay đã lưu trữ
+|
+|	- Khi đang ở giao diện này
+|	  Nếu người dùng nhấn (2 Click) nút OK
+|		|
+|	! Tức đã xác nhận muốn xóa tất cả dữ liệu vân tay trên cảm biến
+
 ===================================================================================================
