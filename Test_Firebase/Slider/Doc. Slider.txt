@@ -1,0 +1,93 @@
+-------------------------------------------------
+# Thư viện [Firebase-ESP8266]
+	|
+	-> https://github.com/mobizt/Firebase-ESP8266
+
+# Lỗi ngăn xếp
+	|
+	Exception 9 stack error arduino esp8266 nodemcu , google firebase database
+	-> https://www.youtube.com/watch?v=9DNS_3Cu7NU&ab_channel=Ufuk%C5%9Eim%C5%9Fek
+
+# Video hướng dẫn nhận và truyền dữ liệu giữa firebase và esp8266
+	|
+	Arduino uno esp8266 firebase
+	-> https://www.youtube.com/watch?v=5FMQF5fGYrs&ab_channel=MN1DM
+
+# Video giới thiệu dự án Slider
+	|
+	Slider - ESP8266/ESP32 - HTML CSS JS FireBase - Control your device from over the world!
+	-> https://www.youtube.com/watch?v=vTM1WrVvkNY&ab_channel=meIOT
+
+-------------------------------------------------
+
+# DATABASE CỦA FIREBASE
+	|
+	blueValue:"0"
+	greenValue:"0"
+	redValue:"0"
+
+-------------------------------------------------
+
+# Biến lưu DATABASE của FIREBASE trên ESP
+	|
+	FirebaseData firebaseData;
+	|
+!!! Nó chỉ lưu trữ VALUE của 1 NAME (cặp JSON) tại một thời điểm
+
+# FIREBASE ===> ESP
+  ESP gửi yêu cầu lên FIREBASE sau đó FIREBASE sẽ phản hồi giá trị về ESP
+	|
+	Firebase.getString(firebaseData, "/redValue");	... lấy dữ liệu của NAME "redValue" và lưu vào biến [firebaseData]
+	|
+# ESP đọc dữ liệu lưu trong DATABASE
+	|
+	firebaseData.stringData();			... lấy dữ liệu VALUE đang chứa trong biến [firebaseData]
+
+-------------------------------------------------
+
+# Biến lưu DATABASE của FIREBASE trên WEB
+	|
+	var database = firebase.database();
+
+# WEB ===> FIREBASE
+  Để cài đặt giá trị mới vào FIREBASE
+	|
+	firebase.database().ref().child("redValue").set(document.getElementById("sliderRed").value);
+	|
+	Trong đó { .child() } là đề cập đến NAME
+	Và { .set() } là đề cập đến VALUE
+
+# FIREBASE ===> WEB
+	|
+	firebase.database().ref().on("value", function (snap) {});
+
+-------------------------------------------------
+-------------------------------------------------
+-------------------------------------------------
+
+	firebase.database.Reference
+	-> https://firebase.google.com/docs/reference/node/firebase.database.Reference
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------
