@@ -366,6 +366,12 @@ void handlingRelay()
   digitalWrite(PIN_DOOR, LOW);
 }
 
+void reportToESP()
+{
+  text = "#" + String(fingerStatus, DEC);
+  Serial.print(text);
+}
+
 /* ------------------------------------------------------------------------- */
 
 void displayMonitor()
@@ -573,8 +579,11 @@ void setup()
   pinMode(PIN_BUZZ, OUTPUT);
 
   /* Wait for ESP's confirmation response */
-  while (Serial.available())
+  while (1)
   {
+    while (Serial.available() == 0)
+    {
+    }
     text = Serial.readString();
     if (text == "Done") // To know ESP had connected with Firebase!
     {
@@ -608,6 +617,8 @@ void loop()
       lcd.print("    ID # ");
       lcd.print(fingerStatus);
       lcd.print("      ");
+
+      reportToESP();
 
       handlingRelay();
 

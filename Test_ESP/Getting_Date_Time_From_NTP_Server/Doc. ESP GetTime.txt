@@ -1,0 +1,32 @@
+--------------------------------------------------------------------------------------------------------
+
+# Lấy Time Quốc tế từ ESP
+
+	ESP8266 NodeMCU NTP Client-Server: Get Date and Time (Arduino IDE)
+	-> https://randomnerdtutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
+	|
+	|===> Bài này chỉ cách lấy thời gian của Ngày Tháng Năm nhưng bị sai
+
+	Getting Current Date and Time with ESP8266 NodeMCU using NTP Server-Client and Arduino IDE
+	-> https://microcontrollerslab.com/current-date-time-esp8266-nodemcu-ntp-server/
+	|
+	|===> Bài này chỉ cách lấy thời gian của Ngày Tháng Năm thì ok
+
+	Getting Date & Time From NTP Server With ESP8266 NodeMCU
+	-> https://lastminuteengineers.com/esp8266-ntp-server-date-time-tutorial/
+		|
+		Network Time Protocol (NTP)
+		Đó là một Giao thức Internet (Internet Protocol - IP) tiêu chuẩn để đồng bộ hóa đồng hồ máy tính với một số tham chiếu qua mạng
+		Giao thức có thể được sử dụng để đồng bộ hóa tất cả các thiết bị được nối mạng với "Giờ Quốc Tế" (Coordinated Universal Time - UTC)
+		|
+		UTC là một tiêu chuẩn thời gian trên toàn thế giới, có liên quan chặt chẽ với GMT (Greenwich Mean Time)
+		UTC không thay đổi, nó giống nhau trên toàn thế giới
+		|
+		VietNam là UTC+07:00
+		Đối với UTC -5.00: -5 * 60 * 60: -18000
+		Đối với UTC +7.00: +7 * 60 * 60: +25200
+
+	ESP8266 NodeMCU NTP Client-Server: Get Date and Time (Arduino IDE)
+	-> https://randomnerdtutorials.com/esp8266-nodemcu-date-time-ntp-client-server-arduino/
+
+--------------------------------------------------------------------------------------------------------
