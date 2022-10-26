@@ -214,9 +214,19 @@ void loop()
 
     /* Calculate if this person is late or not? */
     long note = timeClient.getHours() * 3600 + timeClient.getMinutes() * 60 + timeClient.getSeconds();
-    if (note > numberOpen && note < numberClose)
+    if (numberOpen < numberClose)
     {
-      user.NOTE = "Late";
+      if (note > numberOpen && note < numberClose)
+      {
+        user.NOTE = "Late";
+      }
+    }
+    else if (numberOpen > numberClose)
+    {
+      if (note > numberClose && note < numberOpen)
+      {
+        user.NOTE = "Late";
+      }
     }
 
     /* Step 1: Get value now of "1st" from Firebase
