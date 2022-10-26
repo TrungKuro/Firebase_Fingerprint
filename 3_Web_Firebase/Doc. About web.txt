@@ -1,0 +1,22 @@
+===================================================================================================
+
+	# Spaces
+	-> https://spaces.w3schools.com/
+	|
+	Trang này cung cấp cho mình một Server để lưu trữ các file của 1 trang web
+	|
+# Đây là link Domain trang web mình tạo cho dự án [FingerPrint Firebase]
+-> https://fingerprint-firebase.w3spaces.com/
+
+===================================================================================================
+
+NÚT NHẤN
+
+<a class="w3-button w3-round-xxlarge w3-small w3-light-grey" href="https://www.w3schools.com/spaces" target="_blank">Start now</a>
+
+===================================================================================================
+
+	Chức Năng Đăng Nhập , Đăng Kí Bằng Javascript
+	-> https://www.youtube.com/watch?v=4ZbcmPSzQdU&ab_channel=V%C4%A9Tr%E1%BA%A7n
+
+===================================================================================================
