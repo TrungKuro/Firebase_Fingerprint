@@ -1,3 +1,30 @@
+/* ------------------------------------------------------------------------- */
+/*                                  FIREBASE                                 */
+/* ------------------------------------------------------------------------- */
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+var firebaseConfig = {
+  apiKey: "AIzaSyCGCNj5Y60_mOvVhGa59Z97Q_By_mz2CMY",
+  authDomain: "nodemcu-c6e6d.firebaseapp.com",
+  databaseURL: "https://nodemcu-c6e6d-default-rtdb.firebaseio.com",
+  projectId: "nodemcu-c6e6d",
+  storageBucket: "nodemcu-c6e6d.appspot.com",
+  messagingSenderId: "238954531984",
+  appId: "1:238954531984:web:86fc0e4646bf4898eedc15",
+  measurementId: "G-TB1GL27H5M"
+};
+
+/* Initialize Firebase */
+firebase.initializeApp(firebaseConfig);
+
+/* Get value from firebase to show it when first run (sync between html and firebase) */
+var database = firebase.database();
+
+/* ------------------------------------------------------------------------- */
+/*                          Input processing (User)                          */
+/* ------------------------------------------------------------------------- */
+
 function checkAccess(e) {
   event.preventDefault();
 
@@ -18,7 +45,11 @@ function updateName(e) {
   var getName = document.getElementById("set-name").value;
   var getID = document.getElementById("set-id").value;
 
-  alert(getName + " : " + getID);
+  // alert(getName + " : " + getID);
+
+  /* WEB SEND VALUE TO FIREBASE */
+  var firebaseRef = firebase.database().ref().child("ID/" + getID);
+  firebaseRef.set(getName);
 }
 
 function updateOpen(e) {
@@ -26,7 +57,12 @@ function updateOpen(e) {
 
   var getOpen = document.getElementById("set-open").value;
 
-  alert(getOpen);
+  // alert(getOpen);
+  // alert(convertTime(getOpen));
+
+  /* WEB SEND VALUE TO FIREBASE */
+  var firebaseRef = firebase.database().ref().child("Open");
+  firebaseRef.set(convertTime(getOpen));
 }
 
 function updateClose(e) {
@@ -34,5 +70,19 @@ function updateClose(e) {
 
   var getClose = document.getElementById("set-close").value;
 
-  alert(getClose);
+  // alert(getClose);
+  // alert(convertTime(getClose));
+
+  /* WEB SEND VALUE TO FIREBASE */
+  var firebaseRef = firebase.database().ref().child("Close");
+  firebaseRef.set(convertTime(getClose));
+}
+
+/* ------------------------------------------------------------------------- */
+/*                                  FUNCTION                                 */
+/* ------------------------------------------------------------------------- */
+
+function convertTime(data) {
+  var ok = 3600 * data.substr(0, 2) + 60 * data.substr(3, 2);
+  return ok.toString();
 }
