@@ -32,6 +32,21 @@ function checkAccess(e) {
   var password = document.getElementById("psw").value;
 
   if (username === "admin" && password === "123") {
+    /* -------------------- Update data, before viewing -------------------- */
+
+    /* WEB GET VALUE FROM FIREBASE, update for "Open" */
+    database.ref().on("value", function (snap) {
+      var getFirebase = snap.val().Open;
+      document.getElementById("now-open").innerHTML = "Now Open [" + convertValueToTime(getFirebase) + "]";
+    });
+
+    /* WEB GET VALUE FROM FIREBASE, update for "Close" */
+    database.ref().on("value", function (snap) {
+      var getFirebase = snap.val().Close;
+      document.getElementById("now-close").innerHTML = "Now Close [" + convertValueToTime(getFirebase) + "]";
+    });
+
+    /* --------------------------------------------------------------------- */
     document.getElementById('access').style.display = "none";
   }
   else {
@@ -45,6 +60,7 @@ function updateName(e) {
   var getName = document.getElementById("set-name").value;
   var getID = document.getElementById("set-id").value;
 
+  /* DEBUG */
   // alert(getName + " : " + getID);
 
   /* WEB SEND VALUE TO FIREBASE */
@@ -57,12 +73,19 @@ function updateOpen(e) {
 
   var getOpen = document.getElementById("set-open").value;
 
+  /* DEBUG */
   // alert(getOpen);
-  // alert(convertTime(getOpen));
+  // alert(convertTimeToValue(getOpen));
 
   /* WEB SEND VALUE TO FIREBASE */
   var firebaseRef = firebase.database().ref().child("Open");
-  firebaseRef.set(convertTime(getOpen));
+  firebaseRef.set(convertTimeToValue(getOpen));
+
+  /* WEB GET VALUE FROM FIREBASE */
+  database.ref().on("value", function (snap) {
+    var getFirebase = snap.val().Open;
+    document.getElementById("now-open").innerHTML = "Now Open [" + convertValueToTime(getFirebase) + "]";
+  });
 }
 
 function updateClose(e) {
@@ -70,19 +93,37 @@ function updateClose(e) {
 
   var getClose = document.getElementById("set-close").value;
 
+  /* DEBUG */
   // alert(getClose);
-  // alert(convertTime(getClose));
+  // alert(convertTimeToValue(getClose));
 
   /* WEB SEND VALUE TO FIREBASE */
   var firebaseRef = firebase.database().ref().child("Close");
-  firebaseRef.set(convertTime(getClose));
+  firebaseRef.set(convertTimeToValue(getClose));
+
+  /* WEB GET VALUE FROM FIREBASE */
+  database.ref().on("value", function (snap) {
+    var getFirebase = snap.val().Close;
+    document.getElementById("now-close").innerHTML = "Now Close [" + convertValueToTime(getFirebase) + "]";
+  });
 }
 
 /* ------------------------------------------------------------------------- */
 /*                                  FUNCTION                                 */
 /* ------------------------------------------------------------------------- */
 
-function convertTime(data) {
+function convertTimeToValue(data) {
   var ok = 3600 * data.substr(0, 2) + 60 * data.substr(3, 2);
   return ok.toString();
+}
+
+function convertValueToTime(data) {
+  data = Number(data);
+  data = data / 60;
+  for (let h = 0; h <= 23; h++) {
+    let m = data - 60 * h;
+    if (m >= 0 && m <= 59) {
+      return ((h < 10) ? ("0" + h.toString()) : (h.toString())) + ":" + ((m < 10) ? ("0" + m.toString()) : (m.toString()));
+    }
+  }
 }
