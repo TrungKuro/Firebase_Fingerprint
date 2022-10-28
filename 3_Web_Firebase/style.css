@@ -142,3 +142,20 @@ input[type=password] {
     transform: scale(1);
   }
 }
+
+/* ------------------------------------------------------------------------- */
+/*                                   TABLE                                   */
+/* ------------------------------------------------------------------------- */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0px;
+}
+
+td,
+th {
+  border: 1px solid;
+  text-align: center;
+  padding: 8px;
+}

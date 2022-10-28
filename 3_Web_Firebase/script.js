@@ -1,3 +1,9 @@
+/* Note: WEB GET VALUE FROM FIREBASE
+**
+** These functions are automatically executed every time there is a change to the data it is pointing to on Firebase
+** Therefore, we only need to call it once at the time of website initialization to get the data from Firebase
+*/
+
 /* ------------------------------------------------------------------------- */
 /*                                  FIREBASE                                 */
 /* ------------------------------------------------------------------------- */
@@ -25,6 +31,7 @@ var database = firebase.database();
 /*                          Input processing (User)                          */
 /* ------------------------------------------------------------------------- */
 
+/* --------------------------------- LOGIN --------------------------------- */
 function checkAccess(e) {
   event.preventDefault();
 
@@ -33,6 +40,9 @@ function checkAccess(e) {
 
   if (username === "admin" && password === "123") {
     /* -------------------- Update data, before viewing -------------------- */
+
+    /* WEB GET VALUE FROM FIREBASE, update for "Timesheets" */
+    updateTimeSheet();
 
     /* WEB GET VALUE FROM FIREBASE, update for "Open" */
     database.ref().on("value", function (snap) {
@@ -54,6 +64,59 @@ function checkAccess(e) {
   }
 }
 
+/* ------------------------------- TIMESHEETS ------------------------------ */
+
+function updateTimeSheet() {
+  /* WEB GET VALUE FROM FIREBASE, update for "Total" */
+  database.ref("ID").on("value", function (snap) {
+    var total = snap.val().Total;
+
+    total = Number(total);
+
+    /* DEBUG */
+    // alert("Total: " + total);
+
+    deleteOldTable();
+
+    for (let locate = 1; locate <= total; locate++) {
+      /* WEB GET VALUE FROM FIREBASE, update for "Date, ID, Note, Time" */
+      database.ref("user/" + locate.toString()).on("value", function (snap) {
+        var date = snap.val().Date;
+        /* DEBUG */
+        // alert("Date: " + date);
+
+        var id = snap.val().ID;
+        /* DEBUG */
+        // alert("ID: " + id);
+
+        var note = snap.val().Note;
+        /* DEBUG */
+        // alert("Note: " + note);
+
+        var time = snap.val().Time;
+        /* DEBUG */
+        // alert("Time: " + time);
+
+        /* WEB GET VALUE FROM FIREBASE, update for "Name" */
+        database.ref("ID/" + id).on("value", function (snap) {
+          var name = snap.val();
+          /* DEBUG */
+          // alert("1st: " + locate.toString());
+          // alert("Name: " + name);
+          // alert("ID: " + id);
+          // alert("Date: " + date);
+          // alert("Time: " + time);
+          // alert("Note: " + note);
+
+          createRowForTable(locate, name, id, date, time, note);
+        });
+      });
+    }
+  });
+}
+
+/* ---------------------------------- NAME --------------------------------- */
+
 function updateName(e) {
   event.preventDefault();
 
@@ -63,10 +126,17 @@ function updateName(e) {
   /* DEBUG */
   // alert(getName + " : " + getID);
 
-  /* WEB SEND VALUE TO FIREBASE */
-  var firebaseRef = firebase.database().ref().child("ID/" + getID);
-  firebaseRef.set(getName);
+  let text = "Do you want to register ID [" + getID + "] with Name '" + getName + "'?";
+  if (confirm(text) == true) {
+    /* WEB SEND VALUE TO FIREBASE */
+    var firebaseRef = firebase.database().ref().child("ID/" + getID);
+    firebaseRef.set(getName);
+
+    alert("Sign Up Success!");
+  }
 }
+
+/* ---------------------------------- OPEN --------------------------------- */
 
 function updateOpen(e) {
   event.preventDefault();
@@ -80,13 +150,9 @@ function updateOpen(e) {
   /* WEB SEND VALUE TO FIREBASE */
   var firebaseRef = firebase.database().ref().child("Open");
   firebaseRef.set(convertTimeToValue(getOpen));
-
-  /* WEB GET VALUE FROM FIREBASE */
-  database.ref().on("value", function (snap) {
-    var getFirebase = snap.val().Open;
-    document.getElementById("now-open").innerHTML = "Now Open [" + convertValueToTime(getFirebase) + "]";
-  });
 }
+
+/* --------------------------------- CLOSE --------------------------------- */
 
 function updateClose(e) {
   event.preventDefault();
@@ -100,12 +166,6 @@ function updateClose(e) {
   /* WEB SEND VALUE TO FIREBASE */
   var firebaseRef = firebase.database().ref().child("Close");
   firebaseRef.set(convertTimeToValue(getClose));
-
-  /* WEB GET VALUE FROM FIREBASE */
-  database.ref().on("value", function (snap) {
-    var getFirebase = snap.val().Close;
-    document.getElementById("now-close").innerHTML = "Now Close [" + convertValueToTime(getFirebase) + "]";
-  });
 }
 
 /* ------------------------------------------------------------------------- */
@@ -126,4 +186,36 @@ function convertValueToTime(data) {
       return ((h < 10) ? ("0" + h.toString()) : (h.toString())) + ":" + ((m < 10) ? ("0" + m.toString()) : (m.toString()));
     }
   }
+}
+
+/* ------------------------------------------------------------------------- */
+
+function deleteOldTable() {
+  /* DEBUG */
+  // alert("Delete Old Table");
+
+  var numberRow = document.getElementById("timesheets").rows.length;
+
+  /* DEBUG */
+  // alert("Number Row: " + numberRow);
+
+  /* Delete a row, until all table */
+  for (let i = numberRow - 1; i >= 1; i--) {
+    document.getElementById("timesheets").deleteRow(i);
+  }
+}
+
+function createRowForTable(locate, name, id, date, time, note) {
+  /* DEBUG */
+  // alert("Create New Table");
+
+  var row = document.getElementById("timesheets").insertRow(locate);
+
+  /* Insert all (6) cells on a row */
+  row.insertCell(0).innerHTML = locate;
+  row.insertCell(1).innerHTML = name;
+  row.insertCell(2).innerHTML = id;
+  row.insertCell(3).innerHTML = date;
+  row.insertCell(4).innerHTML = time;
+  row.insertCell(5).innerHTML = note;
 }

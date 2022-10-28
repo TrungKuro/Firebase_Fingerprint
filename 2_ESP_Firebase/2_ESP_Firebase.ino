@@ -67,14 +67,14 @@ struct dataFirebase
 /*                                  FUNCTION                                 */
 /* ------------------------------------------------------------------------- */
 
-/* Get value of "1st" from Firebase */
-void getValue1st()
+/* Get value of "Total" from Firebase */
+void getValueTotal()
 {
-  if (Firebase.getString(firebaseData, F("/1st")))
+  if (Firebase.getString(firebaseData, F("/ID/Total")))
   {
     text = firebaseData.stringData();
     st = text.toInt();
-    DEBUG_PRINT(F("1st: "));
+    DEBUG_PRINT(F("Total: "));
     DEBUG_PRINTLN(text);
   }
   else
@@ -229,22 +229,22 @@ void loop()
       }
     }
 
-    /* Step 1: Get value now of "1st" from Firebase
+    /* Step 1: Get value now of "Total" from Firebase
     ** Step 2: Then increase by 1
     ** Step 3: Create a new path branch
     ** Step 4: Update value for "Date" on Firebase
     ** Step 5: Update value for "ID" on Firebase
     ** Step 6: Update value for "Note" on Firebase
     ** Step 7: Update value for "Time" on Firebase
-    ** Step 8: Update new value to "1st" on Firebase
+    ** Step 8: Update new value to "Total" on Firebase
     */
-    getValue1st();
+    getValueTotal();
     st++;
     text = "/user/" + String(st) + "/";
     setValue(String(text + F("Date")), user.DATE);
     setValue(String(text + F("ID")), user.ID);
     setValue(String(text + F("Note")), user.NOTE);
     setValue(String(text + F("Time")), user.TIME);
-    setValue(F("/1st"), String(st));
+    setValue(F("/ID/Total"), String(st));
   }
 }

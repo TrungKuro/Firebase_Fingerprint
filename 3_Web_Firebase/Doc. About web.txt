@@ -83,4 +83,7 @@
 	Chức Năng Đăng Nhập , Đăng Kí Bằng Javascript
 	-> https://www.youtube.com/watch?v=4ZbcmPSzQdU&ab_channel=V%C4%A9Tr%E1%BA%A7n
 
+	Table insertRow() Method
+	-> https://www.w3schools.com/jsref/met_table_insertrow.asp#:
+
 ===================================================================================================
