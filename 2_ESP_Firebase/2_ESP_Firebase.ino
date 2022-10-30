@@ -175,6 +175,7 @@ void setup()
       break;
     }
   }
+  DEBUG_PRINTLN(F("Ready"));
 }
 
 void loop()
@@ -193,6 +194,7 @@ void loop()
     dataFirebase user;
 
     /* Get ID */
+    text.remove(0, 1); // Remove '#'
     user.ID = text;
 
     /* Get TIME */
@@ -240,7 +242,7 @@ void loop()
     */
     getValueTotal();
     st++;
-    text = "/user/" + String(st) + "/";
+    text = "ID/User/st" + String(st) + "/";
     setValue(String(text + F("Date")), user.DATE);
     setValue(String(text + F("ID")), user.ID);
     setValue(String(text + F("Note")), user.NOTE);

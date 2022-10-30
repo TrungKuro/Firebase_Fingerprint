@@ -10,7 +10,7 @@
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-var firebaseConfig = {
+let firebaseConfig = {
   apiKey: "AIzaSyCGCNj5Y60_mOvVhGa59Z97Q_By_mz2CMY",
   authDomain: "nodemcu-c6e6d.firebaseapp.com",
   databaseURL: "https://nodemcu-c6e6d-default-rtdb.firebaseio.com",
@@ -25,7 +25,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 /* Get value from firebase to show it when first run (sync between html and firebase) */
-var database = firebase.database();
+let database = firebase.database();
 
 /* ------------------------------------------------------------------------- */
 /*                          Input processing (User)                          */
@@ -35,8 +35,8 @@ var database = firebase.database();
 function checkAccess(e) {
   event.preventDefault();
 
-  var username = document.getElementById("uname").value;
-  var password = document.getElementById("psw").value;
+  let username = document.getElementById("uname").value;
+  let password = document.getElementById("psw").value;
 
   if (username === "admin" && password === "123") {
     /* -------------------- Update data, before viewing -------------------- */
@@ -46,13 +46,13 @@ function checkAccess(e) {
 
     /* WEB GET VALUE FROM FIREBASE, update for "Open" */
     database.ref().on("value", function (snap) {
-      var getFirebase = snap.val().Open;
+      let getFirebase = snap.val().Open;
       document.getElementById("now-open").innerHTML = "Now Open [" + convertValueToTime(getFirebase) + "]";
     });
 
     /* WEB GET VALUE FROM FIREBASE, update for "Close" */
     database.ref().on("value", function (snap) {
-      var getFirebase = snap.val().Close;
+      let getFirebase = snap.val().Close;
       document.getElementById("now-close").innerHTML = "Now Close [" + convertValueToTime(getFirebase) + "]";
     });
 
@@ -68,8 +68,8 @@ function checkAccess(e) {
 
 function updateTimeSheet() {
   /* WEB GET VALUE FROM FIREBASE, update for "Total" */
-  database.ref("ID").on("value", function (snap) {
-    var total = snap.val().Total;
+  database.ref().child("ID").on("value", function (snap) {
+    let total = snap.val().Total;
 
     total = Number(total);
 
@@ -79,38 +79,10 @@ function updateTimeSheet() {
     deleteOldTable();
 
     for (let locate = 1; locate <= total; locate++) {
-      /* WEB GET VALUE FROM FIREBASE, update for "Date, ID, Note, Time" */
-      database.ref("user/" + locate.toString()).on("value", function (snap) {
-        var date = snap.val().Date;
-        /* DEBUG */
-        // alert("Date: " + date);
+      /* DEBUG */
+      // alert("Locate: " + locate);
 
-        var id = snap.val().ID;
-        /* DEBUG */
-        // alert("ID: " + id);
-
-        var note = snap.val().Note;
-        /* DEBUG */
-        // alert("Note: " + note);
-
-        var time = snap.val().Time;
-        /* DEBUG */
-        // alert("Time: " + time);
-
-        /* WEB GET VALUE FROM FIREBASE, update for "Name" */
-        database.ref("ID/" + id).on("value", function (snap) {
-          var name = snap.val();
-          /* DEBUG */
-          // alert("1st: " + locate.toString());
-          // alert("Name: " + name);
-          // alert("ID: " + id);
-          // alert("Date: " + date);
-          // alert("Time: " + time);
-          // alert("Note: " + note);
-
-          createRowForTable(locate, name, id, date, time, note);
-        });
-      });
+      getDataforRow(locate);
     }
   });
 }
@@ -120,8 +92,8 @@ function updateTimeSheet() {
 function updateName(e) {
   event.preventDefault();
 
-  var getName = document.getElementById("set-name").value;
-  var getID = document.getElementById("set-id").value;
+  let getName = document.getElementById("set-name").value;
+  let getID = document.getElementById("set-id").value;
 
   /* DEBUG */
   // alert(getName + " : " + getID);
@@ -129,7 +101,7 @@ function updateName(e) {
   let text = "Do you want to register ID [" + getID + "] with Name '" + getName + "'?";
   if (confirm(text) == true) {
     /* WEB SEND VALUE TO FIREBASE */
-    var firebaseRef = firebase.database().ref().child("ID/" + getID);
+    let firebaseRef = firebase.database().ref().child("ID/" + getID);
     firebaseRef.set(getName);
 
     alert("Sign Up Success!");
@@ -141,14 +113,14 @@ function updateName(e) {
 function updateOpen(e) {
   event.preventDefault();
 
-  var getOpen = document.getElementById("set-open").value;
+  let getOpen = document.getElementById("set-open").value;
 
   /* DEBUG */
   // alert(getOpen);
   // alert(convertTimeToValue(getOpen));
 
   /* WEB SEND VALUE TO FIREBASE */
-  var firebaseRef = firebase.database().ref().child("Open");
+  let firebaseRef = firebase.database().ref().child("Open");
   firebaseRef.set(convertTimeToValue(getOpen));
 }
 
@@ -157,14 +129,14 @@ function updateOpen(e) {
 function updateClose(e) {
   event.preventDefault();
 
-  var getClose = document.getElementById("set-close").value;
+  let getClose = document.getElementById("set-close").value;
 
   /* DEBUG */
   // alert(getClose);
   // alert(convertTimeToValue(getClose));
 
   /* WEB SEND VALUE TO FIREBASE */
-  var firebaseRef = firebase.database().ref().child("Close");
+  let firebaseRef = firebase.database().ref().child("Close");
   firebaseRef.set(convertTimeToValue(getClose));
 }
 
@@ -173,7 +145,7 @@ function updateClose(e) {
 /* ------------------------------------------------------------------------- */
 
 function convertTimeToValue(data) {
-  var ok = 3600 * data.substr(0, 2) + 60 * data.substr(3, 2);
+  let ok = 3600 * data.substr(0, 2) + 60 * data.substr(3, 2);
   return ok.toString();
 }
 
@@ -194,7 +166,7 @@ function deleteOldTable() {
   /* DEBUG */
   // alert("Delete Old Table");
 
-  var numberRow = document.getElementById("timesheets").rows.length;
+  let numberRow = document.getElementById("timesheets").rows.length;
 
   /* DEBUG */
   // alert("Number Row: " + numberRow);
@@ -205,11 +177,54 @@ function deleteOldTable() {
   }
 }
 
+function getDataforRow(locate) {
+  locate = String(locate);
+
+  /* DEBUG */
+  // alert("Locate out: " + locate);
+
+  /* WEB GET VALUE FROM FIREBASE, update for "Date, ID, Note, Time" */
+  database.ref().child("ID/User/st" + locate).once("value", function (snap) {
+    /* DEBUG */
+    // alert("Locate in: " + locate);
+
+    let date = snap.val().Date;
+    /* DEBUG */
+    // alert("Date: " + date);
+
+    let id = snap.val().ID;
+    /* DEBUG */
+    // alert("ID: " + id);
+
+    let note = snap.val().Note;
+    /* DEBUG */
+    // alert("Note: " + note);
+
+    let time = snap.val().Time;
+    /* DEBUG */
+    // alert("Time: " + time);
+
+    /* WEB GET VALUE FROM FIREBASE, update for "Name" */
+    database.ref().child("ID/" + id).once("value", function (snap) {
+      let name = snap.val();
+      /* DEBUG */
+      // alert("1st: " + locate.toString());
+      // alert("Name: " + name);
+      // alert("ID: " + id);
+      // alert("Date: " + date);
+      // alert("Time: " + time);
+      // alert("Note: " + note);
+
+      createRowForTable(locate, name, id, date, time, note);
+    });
+  });
+}
+
 function createRowForTable(locate, name, id, date, time, note) {
   /* DEBUG */
-  // alert("Create New Table");
+  // alert("Create Row " + locate + " for New Table");
 
-  var row = document.getElementById("timesheets").insertRow(locate);
+  let row = document.getElementById("timesheets").insertRow(Number(locate));
 
   /* Insert all (6) cells on a row */
   row.insertCell(0).innerHTML = locate;
