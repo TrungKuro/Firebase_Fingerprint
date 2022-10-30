@@ -17,15 +17,16 @@
 
 /* ----------------- Replace with your network credentials ----------------- */
 
-// #define WIFI_SSID "Truong Ngoc"
-// #define WIFI_PASSWORD "NGOC5G65@382N%#1974"
-#define WIFI_SSID "HshopLTK"
-#define WIFI_PASSWORD "HshopLTK@2311"
+#define WIFI_SSID "Truong Ngoc"
+#define WIFI_PASSWORD "NGOC5G65@382N%#1974"
+
+// #define WIFI_SSID "Fingerprint"
+// #define WIFI_PASSWORD "firebase"
 
 /* -------------------------------- FIREBASE ------------------------------- */
 
-#define FIREBASE_HOST "nodemcu-c6e6d-default-rtdb.firebaseio.com"
-#define FIREBASE_AUTH "1sn5lmTJxEsz4Nk3bEptleriM0dSrlSdyd3qNWCm"
+#define FIREBASE_HOST "fingerprint-63597-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH "1xxqTFIyhWZBaonbKkFADQ0f2lEHw4qKjLU8xM6O"
 
 FirebaseData firebaseData;
 

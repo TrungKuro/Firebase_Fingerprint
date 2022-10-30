@@ -87,3 +87,39 @@
 	-> https://www.w3schools.com/jsref/met_table_insertrow.asp#:
 
 ===================================================================================================
+
+TÀI KHOẢN GOOGLE ĐỂ VÀO FIREBASE
+	|
+	Jobteamab@gmail.com
+	Job@150320
+
+CẤU HÌNH WIFI CHO ESP8266
+	|
+	#define WIFI_SSID "Fingerprint"
+	#define WIFI_PASSWORD "firebase"
+
+CẤU HÌNH FIREBASE
+	|
+	#define FIREBASE_HOST "fingerprint-63597-default-rtdb.firebaseio.com"
+	#define FIREBASE_AUTH "1xxqTFIyhWZBaonbKkFADQ0f2lEHw4qKjLU8xM6O"
+	|
+let firebaseConfig = {
+  apiKey: "AIzaSyC3xQCJOOeZgdJlz0kH6FFnwfuK3SB2RVo",
+  authDomain: "fingerprint-63597.firebaseapp.com",
+  databaseURL: "https://fingerprint-63597-default-rtdb.firebaseio.com",
+  projectId: "fingerprint-63597",
+  storageBucket: "fingerprint-63597.appspot.com",
+  messagingSenderId: "25189256652",
+  appId: "1:25189256652:web:e6c3f1b22e6b418d296169",
+  measurementId: "G-KBHTE4QKPF"
+};
+
+TRANG WEB GIAO DIỆN CHECK CHẤM CÔNG VÂN TAY
+	|
+	-> https://fingerprint-firebase.w3spaces.com/
+
+SPACE CỦA TRANG WEB
+	|
+	-> https://spaces.w3schools.com/space/fingerprint-firebase
+
+===================================================================================================
