@@ -94,14 +94,32 @@
       <p>
         Đôi lời về dự án này...
         <br>
-        Some text about me. Some text about me. I am lorem ipsum consectetur adipiscing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-        nisi ut aliquip
-        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
-        id est laborum consectetur
-        adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        Nói ngắn gọn, đây là một dự án có chức năng "chấm công" cho nhân viên, cũng như theo dõi lượng người đi qua cửa.
+        Dự án gồm 3 phần chính: Phần cứng, Phần mềm và Cơ sở dữ liệu.
+        <br>
+      <ol>
+        <li>Trong đó, Phần cứng sử dụng bo mạch Arduino UNO, kết hợp với cảm biến Vân tay AS608 và ESP8266, đảm nhận
+          chức năng chính là đọc dữ liệu vân tay từ người dùng sau đó gửi cho ESP8266. Khi ESP8266 nhận được nó sẽ tính
+          toán và đẩy gói thông tin lên cơ sở dữ liệu Firebase. Ngoài ra UNO còn kết nối với Relay để kích Khóa từ cho
+          mở cửa trong một khoảng thời gian mỗi khi ai đó quét vân tay. Kết nối với bộ 3 Nút nhấn để thực hiện việc đăng
+          ký ID vân tay mới hoặc xóa vân tay. Và cuối cùng là Màn hình LCD và Còi Buzzer để tương tác cung cấp thông tin
+          cho người dùng trong quá trình thao tác cài đặt hay sử dụng.
+        </li>
+        <li>Cơ sở dữ liệu Firebase, đây là một tính năng của Google. Cho phép người dùng sử dụng tài khoản Google của
+          riêng họ để đăng ký tạo một cơ sở dữ liệu và sử dụng nó.</li>
+        <li>Về "Phần mềm" được chia thành 4 phần nhỏ, bao gồm:
+          <ul>
+            <li>Firmware UNO (.ino), chương trình cho UNO xử lý dữ liệu điều khiển từ các Nút nhấn và Cảm biến Vân tay,
+              sau đó tính toán và thực hiện những điều khiển phù hợp đến các thiết bị khác như Relay, Còi Buzzer và Màn
+              hình LCD.</li>
+            <li>Firmware ESP8266 (.ino), chương trình cho ESP8266 bắt dữ liệu từ UNO gửi tới rồi cập nhập thời gian
+              thực, tính toán và đóng gói dữ liệu để gửi lên Firebase.</li>
+            <li>Front-End Web (.html và .css), để tạo phần giao diện hiển thị trên trang Web.</li>
+            <li>Back-End Web (.js), xử lý các thao tác sử dụng từ người dùng trên Web để thực hiện một số tính năng như
+              gửi dữ liệu lên Firebase hoặc lấy dữ liệu từ Firebase cho hiển thị lên Web.</li>
+          </ul>
+        </li>
+      </ol>
       </p>
 
       <!-- ------------------------- User Manual -------------------------- -->
