@@ -1,0 +1,123 @@
+===================================================================================================
+
+	Tech Note 098 - ESP32/8266 Runtime Error Debugging
+	-> https://www.youtube.com/watch?v=323CS87h6WU&ab_channel=G6EJD-David
+
+# EspExceptionDecoder
+	-> https://github.com/me-no-dev/EspExceptionDecoder
+	|
+	when i open decoder it is asking for elf files
+	-> https://github.com/me-no-dev/EspExceptionDecoder/issues/25
+
+# Lỗi ngăn xếp
+	|
+	Exception 9 stack error arduino esp8266 nodemcu , google firebase database
+	-> https://www.youtube.com/watch?v=9DNS_3Cu7NU&ab_channel=Ufuk%C5%9Eim%C5%9Fek
+
+===================================================================================================
+
+.....
+connected: 192.168.102.23
+DoneReady
+Open: 28800
+Close: 63000
+DATE: 2022-10-31
+ID: 100
+NOTE: 
+TIME: 02:09:20
+Total: 22
+/ID/User/st23/Date : 2022-10-31
+/ID/User/st23/ID : 100
+
+Exception (29):
+epc1=0x40204be2 epc2=0x00000000 epc3=0x00000000 excvaddr=0x00000000 depc=0x00000000
+
+>>>stack>>>
+
+ctx: cont
+sp: 3ffffab0 end: 3fffffc0 offset: 01a0
+3ffffc50:  3ffe887c bffe887a 00000594 3ffe887b  
+3ffffc60:  7fffffff 3ffffd44 00000004 00000000  
+3ffffc70:  ffffffff 3ffffecc 3ffffd18 40204c29  
+3ffffc80:  3ffffecc 00000014 00000020 00000000  
+3ffffc90:  ffffffff 3ffe887b 3ffffd18 40204c92  
+3ffffca0:  00000001 00000000 3ffffd00 40204968  
+3ffffcb0:  0000000f ffffffff 3ffffecc 00000000  
+3ffffcc0:  00000001 3ffee848 3ffffd18 00000000  
+3ffffcd0:  00000001 3ffee848 3ffffd18 40205c2c  
+3ffffce0:  0000000f ffffffff 3ffffecc 40205b34  
+3ffffcf0:  00000001 3ffee848 00000006 4020ed9f  
+3ffffd00:  3fff3824 00000014 3fff1e4c 00000004  
+3ffffd10:  3fff1c9c 00000004 00000000 00000000  
+3ffffd20:  00000000 00000000 00000001 00000006  
+3ffffd30:  00000000 00000000 00000000 00000000  
+3ffffd40:  00000000 3ffeff0c 00000004 00000000  
+3ffffd50:  00000000 00000000 00000000 00000000  
+3ffffd60:  ffffffff 00000000 00000000 00000000  
+3ffffd70:  00000000 0000000c ffffffff 3ffe887b  
+3ffffd80:  0000000b ffffffff ffffffff 00000000  
+3ffffd90:  00003140 00000002 00302064 3fffff4c  
+3ffffda0:  00004528 0000000f ffffffff 3ffffec0  
+3ffffdb0:  3fff2464 00000004 3fff1f84 00000004  
+3ffffdc0:  3fff244c 00000014 3fff380c 00000014  
+3ffffdd0:  0000000f ffffffff 3ffffec0 3ffeeab8  
+3ffffde0:  00000000 00000000 3ffffe60 4021dfcd  
+3ffffdf0:  3ffffecc 000004fa ffffffff 0000000f  
+3ffffe00:  3ffffec0 3ffffecc ffffffff 40205400  
+3ffffe10:  0000000f ffffffff 3ffffecc 00000006  
+3ffffe20:  00000000 00000000 00000000 00000000  
+3ffffe30:  0000000c ffffffff 3ffe887b 00000000  
+3ffffe40:  00000000 00000000 0000000c ffffffff  
+3ffffe50:  3ffe887b 00000000 00000000 00000000  
+3ffffe60:  0000000c ffffffff 3ffe887b 4021e072  
+3ffffe70:  4021d040 00000000 3ffffecc 4021e1a8  
+3ffffe80:  3ffffed8 0000000f ffffffff 3ffffec0  
+3ffffe90:  3ffeeab8 3ffee848 3ffffecc 4021e350  
+3ffffea0:  3ffffed8 00000012 3fffff4c 3fffff4c  
+3ffffeb0:  3fffff40 3ffee7cc 3ffee7c8 40205462  
+3ffffec0:  3fff2424 0012001f 00ffff40 4021e100  
+3ffffed0:  3fffff28 80ffff28 3fffff00 4021e320  
+3ffffee0:  80fee7d8 3fff1f5c 0012001f 0021e350  
+3ffffef0:  3fffff28 3fffff40 3ffee7c8 00001e3c  
+3fffff00:  3ffee7d8 3ffee7cc 3ffee7c8 402057b7  
+3fffff10:  32323032 2d30312d 8a003133 00303031  
+3fffff20:  3ffe88e2 83a7f6af 40100300 000021f3  
+3fffff30:  80000000 303a3230 30323a39 88feed00  
+3fffff40:  00303000 2d30312d 80003133 3fff1aac  
+3fffff50:  0012001f 00feebbc 3fff37cc 0012001f  
+3fffff60:  00003133 32323000 3ffeeb00 8021d454  
+3fffff70:  635f2e50 3ffee7cc 3ffeebbc 4021d478  
+3fffff80:  0000000a 0000001f 3ffeebbc 4020515a  
+3fffff90:  40004b00 1766a8c0 80efeffe 3ffeed18  
+3fffffa0:  3fffdad0 00000000 3ffeecd8 4021e9d8  
+3fffffb0:  feefeffe feefeffe 3ffe8540 40100e0d  
+<<<stack<<<
+
+ ets Jan  8 2013,rst cause:2, boot mode:(3,6)
+
+load 0x4010f000, len 1384, room 16 
+tail 8
+chksum 0x2d
+csum 0x2d
+vbc204a9b
+~ld
+connecting.....
+connected: 192.168.102.23
+Done
+
+===================================================================================================
+
+# Lỗi xuất phát từ dòng lệnh	setValue(text + "Note", user.NOTE);
+  Sau nhiều lần thử nghiệm, mình đặt thêm dòng lệnh	user.NOTE = ".";
+  Thay cho trường hợp					user.NOTE = "Late";
+  Và nó đã chạy
+
+===================================================================================================
+
+# NÂNG CẤP:
+	|
+Khi mà ESP thỉnh thoảng có tình trạng Reset lại
+Mình nên thêm tính năng cho UNO bắt lệnh từ ESP
+Để UNO biết khi nào ESP nó ngủm mà đợi nó Reset và kết nối lại Wifi
+
+===================================================================================================

@@ -3,8 +3,10 @@
 #include <WiFiUdp.h>
 
 // Replace with your network credentials
-const char *ssid = "HshopLTK";
-const char *password = "HshopLTK@2311";
+// const char *ssid = "HshopLTK";
+// const char *password = "HshopLTK@2311";
+const char *ssid = "Truong Ngoc";
+const char *password = "NGOC5G65@382N%#1974";
 
 // Set offset time in seconds to adjust for your timezone, for example:
 // For UTC -5.00 : -5 * 60 * 60 : -18000

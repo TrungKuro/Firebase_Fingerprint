@@ -17,6 +17,9 @@
 
 /* ----------------- Replace with your network credentials ----------------- */
 
+// #define WIFI_SSID "HshopLTK"
+// #define WIFI_PASSWORD "HshopLTK@2311"
+
 #define WIFI_SSID "Truong Ngoc"
 #define WIFI_PASSWORD "NGOC5G65@382N%#1974"
 
@@ -223,6 +226,10 @@ void loop()
       {
         user.NOTE = "Late";
       }
+      else
+      {
+        user.NOTE = ".";
+      }
     }
     else if (numberOpen > numberClose)
     {
@@ -230,7 +237,21 @@ void loop()
       {
         user.NOTE = "Late";
       }
+      else
+      {
+        user.NOTE = ".";
+      }
     }
+
+    /* DEBUG */
+    DEBUG_PRINT(F("DATE: "));
+    DEBUG_PRINTLN(user.DATE);
+    DEBUG_PRINT(F("ID: "));
+    DEBUG_PRINTLN(user.ID);
+    DEBUG_PRINT(F("NOTE: "));
+    DEBUG_PRINTLN(user.NOTE);
+    DEBUG_PRINT(F("TIME: "));
+    DEBUG_PRINTLN(user.TIME);
 
     /* Step 1: Get value now of "Total" from Firebase
     ** Step 2: Then increase by 1
@@ -243,11 +264,11 @@ void loop()
     */
     getValueTotal();
     st++;
-    text = "ID/User/st" + String(st) + "/";
-    setValue(String(text + F("Date")), user.DATE);
-    setValue(String(text + F("ID")), user.ID);
-    setValue(String(text + F("Note")), user.NOTE);
-    setValue(String(text + F("Time")), user.TIME);
+    text = String(F("/ID/User/st")) + String(st);
+    setValue(text + F("/Date"), user.DATE);
+    setValue(text + F("/ID"), user.ID);
+    setValue(text + F("/Note"), user.NOTE);
+    setValue(text + F("/Time"), user.TIME);
     setValue(F("/ID/Total"), String(st));
   }
 }
